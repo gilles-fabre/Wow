@@ -170,6 +170,9 @@ Initial version by gilles fabre (gilles.fabre.perso@free.fr), March 2017
 
 package WowPackage;
 import java.awt.Dimension;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 

@@ -413,7 +413,7 @@ public final class WowEntry extends JDialog
 			jLabel1.setText(Messages.getString("WowEntry.2")); //$NON-NLS-1$
 			jLabel2.setBounds(14, 80, 59, 24);
 			jLabel2.setText(Messages.getString("WowEntry.3")); //$NON-NLS-1$
-			jLabel3.setText("To/For: "); //$NON-NLS-1$
+			jLabel3.setText(Messages.getString("WowEntry.18")); //$NON-NLS-1$
 			jLabel3.setSize(59, 27);
 			jLabel3.setLocation(14, 114);
 			jPanel.add(jLabel, null);
@@ -442,7 +442,7 @@ public final class WowEntry extends JDialog
 		{
 			WhoField = new DebtorField();
 			WhoField.setBounds(76, 11, 207, 26);
-			WhoField.setToolTipText("*WHO* pays/owes/uses/.."); //$NON-NLS-1$
+			WhoField.setToolTipText(Messages.getString("WowEntry.19")); //$NON-NLS-1$
 			WhoField.setInputVerifier(new DebtorVerifier());
 		}
 		return WhoField;
@@ -467,7 +467,7 @@ public final class WowEntry extends JDialog
 			DoesCombo.addItem(Messages.getString("WowEntry.17")); //$NON-NLS-1$
 			DoesCombo.setMaximumRowCount(4);
 			DoesCombo.setEditable(false);
-			DoesCombo.setToolTipText("who does *USE/OWE/PAY/..*"); //$NON-NLS-1$
+			DoesCombo.setToolTipText(Messages.getString("WowEntry.20")); //$NON-NLS-1$
 		}
 		return DoesCombo;
 	}
@@ -483,7 +483,7 @@ public final class WowEntry extends JDialog
 		{
 			WhatField = new JTextField();
 			WhatField.setBounds(76, 81, 207, 24);
-			WhatField.setToolTipText("who does pay *WHAT* ..."); //$NON-NLS-1$
+			WhatField.setToolTipText(Messages.getString("WowEntry.21")); //$NON-NLS-1$
 			WhatField.setInputVerifier(new FloatVerifier());
 		}
 		return WhatField;
@@ -499,7 +499,7 @@ public final class WowEntry extends JDialog
 		{
 			WhomField = new DebtorField();
 			WhomField.setBounds(76, 115, 207, 27);
-			WhomField.setToolTipText("who does pay/owe/use what *FOR/TO WHOM/WHAT/..*"); //$NON-NLS-1$
+			WhomField.setToolTipText(Messages.getString("WowEntry.22")); //$NON-NLS-1$
 			WhomField.setInputVerifier(new DebtorVerifier());
 		}
 		return WhomField;
@@ -563,5 +563,21 @@ public final class WowEntry extends JDialog
 		entry.add(new String(getWhomField().getText()));
 		
 		return entry;
+	}
+
+	public void setWho(Object valueAt) {
+		getWhoField().setText(valueAt.toString());
+	}
+
+	public void setDoes(Object valueAt) {
+		getDoesCombo().setSelectedItem(valueAt);
+	}
+
+	public void setWhat(Object valueAt) {
+		getWhatField().setText(valueAt.toString());
+	}
+
+	public void setToFor(Object valueAt) {
+		getWhomField().setText(valueAt.toString());
 	}
 }  //  @jve:decl-index=0:visual-constraint="10,10"

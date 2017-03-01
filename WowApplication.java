@@ -188,6 +188,8 @@ import javax.swing.filechooser.FileFilter;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 /**
  * @author gilles.fabre
@@ -201,7 +203,7 @@ public final class WowApplication
 {
 	// the main application window
 	static WowWindow 	wowWnd;
-	static final String	WOW_FILE_EXTENSION = ".wow";
+	static final String	WOW_FILE_EXTENSION = Messages.getString("WowApplication.24"); //$NON-NLS-1$
 
 	// this method initializes the look and feel to default.
 	private void initLookAndFeel() 
@@ -310,6 +312,97 @@ public final class WowApplication
 					matrix.updateUI();
 					graphView.updateUI();
 				}
+			}
+		}
+
+		class ModifyAction implements MouseListener
+		{
+			public void actionPerformed(MouseEvent e)
+			{
+				int rowIndex = table.getRowCount();
+				
+				WowEntry entry = new WowEntry(wowWindow);
+				
+				entry.setVisible(true);
+
+				if (entry.wasValidated())
+				{
+					DateFormat 	dateFmt = new SimpleDateFormat();
+
+					Vector newEntry = entry.getEntry();
+
+					table.setValueAt(newEntry.elementAt(WowTable.WHO_COLUMN), rowIndex, WowTable.WHO_COLUMN);
+					table.setValueAt(newEntry.elementAt(WowTable.DOES_COLUMN), rowIndex, WowTable.DOES_COLUMN);
+					table.setValueAt(newEntry.elementAt(WowTable.WHAT_COLUMN), rowIndex, WowTable.WHAT_COLUMN);
+					table.setValueAt(newEntry.elementAt(WowTable.TO_FOR_COLUMN), rowIndex, WowTable.TO_FOR_COLUMN);
+					table.setValueAt(dateFmt.format(new Date()), rowIndex, WowTable.WHEN_COLUMN);
+
+					graph.updateData(table);
+					graph.updateGraphView();
+					matrix.invalidate();
+					matrix.updateUI();
+					graphView.updateUI();
+				}
+			}
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			    if (e.getClickCount() == 2) {
+			    	JTable target = (JTable)e.getSource();
+				    int rowIndex = target.getSelectedRow();
+				    WowEntry entry = new WowEntry(wowWindow);
+
+				    // Initializes the entry with the selected row's values
+				    entry.setWho(table.getValueAt(rowIndex, WowTable.WHO_COLUMN));
+				    entry.setDoes(table.getValueAt(rowIndex, WowTable.DOES_COLUMN));
+				    entry.setWhat(table.getValueAt(rowIndex, WowTable.WHAT_COLUMN));
+				    entry.setToFor(table.getValueAt(rowIndex, WowTable.TO_FOR_COLUMN));
+				    
+				    entry.setVisible(true);
+
+				    if (entry.wasValidated())
+				    {
+				    	DateFormat 	dateFmt = new SimpleDateFormat();
+
+				    	Vector newEntry = entry.getEntry();
+
+				    	table.setValueAt(newEntry.elementAt(WowTable.WHO_COLUMN), rowIndex, WowTable.WHO_COLUMN);
+				    	table.setValueAt(newEntry.elementAt(WowTable.DOES_COLUMN), rowIndex, WowTable.DOES_COLUMN);
+				    	table.setValueAt(newEntry.elementAt(WowTable.WHAT_COLUMN), rowIndex, WowTable.WHAT_COLUMN);
+				    	table.setValueAt(newEntry.elementAt(WowTable.TO_FOR_COLUMN), rowIndex, WowTable.TO_FOR_COLUMN);
+				    	table.setValueAt(dateFmt.format(new Date()), rowIndex, WowTable.WHEN_COLUMN);
+
+				    	graph.updateData(table);
+				    	graph.updateGraphView();
+				    	matrix.invalidate();
+				    	matrix.updateUI();
+				    	graphView.updateUI();
+				    }
+				}
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
 			}
 		}
 
@@ -558,6 +651,8 @@ public final class WowApplication
 			compute.addActionListener(new ComputeAction());
 			save.addActionListener(new SaveAction());
 			load.addActionListener(new LoadAction());
+			
+			matrix.addMouseListener(new ModifyAction());
 			
 			wowWindow = this;
 		} 

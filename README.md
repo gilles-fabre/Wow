@@ -14,8 +14,7 @@ Graphical view displaying the various resources and exchanges across consumers a
 reading the problem resolution log (in case someone says, "hey, I payed more than anyone, why should I owe anyone money?" to which
 you may reply "cause you've ve got the largest familly dude!" or just show the log).
 
-Of course, data can be saved, loaded, modified (by deleting or creating new entries), etc. One may want to improve the GUI by 
-adding the support for 'double clicking an entry' opens a dialog where the corresponding data can be altered...
+Of course, data can be saved, loaded, added, removed, modified (by double clicking a table entry), etc. 
 
 There's no constraint on the type of 'value unit' used to pay. Most of the time, money is used to pay, but you may decide to use 
 chocolate bars, salt, etc. The only constraint is "*ALL* payments must use the same type of value unit". That is, if Bob pays using
