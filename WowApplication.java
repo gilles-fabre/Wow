@@ -184,6 +184,8 @@ import java.util.Date;
 import java.util.Vector;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 import javax.swing.filechooser.FileFilter;
 
 import java.awt.event.ActionEvent;
@@ -317,34 +319,6 @@ public final class WowApplication
 
 		class ModifyAction implements MouseListener
 		{
-			public void actionPerformed(MouseEvent e)
-			{
-				int rowIndex = table.getRowCount();
-				
-				WowEntry entry = new WowEntry(wowWindow);
-				
-				entry.setVisible(true);
-
-				if (entry.wasValidated())
-				{
-					DateFormat 	dateFmt = new SimpleDateFormat();
-
-					Vector newEntry = entry.getEntry();
-
-					table.setValueAt(newEntry.elementAt(WowTable.WHO_COLUMN), rowIndex, WowTable.WHO_COLUMN);
-					table.setValueAt(newEntry.elementAt(WowTable.DOES_COLUMN), rowIndex, WowTable.DOES_COLUMN);
-					table.setValueAt(newEntry.elementAt(WowTable.WHAT_COLUMN), rowIndex, WowTable.WHAT_COLUMN);
-					table.setValueAt(newEntry.elementAt(WowTable.TO_FOR_COLUMN), rowIndex, WowTable.TO_FOR_COLUMN);
-					table.setValueAt(dateFmt.format(new Date()), rowIndex, WowTable.WHEN_COLUMN);
-
-					graph.updateData(table);
-					graph.updateGraphView();
-					matrix.invalidate();
-					matrix.updateUI();
-					graphView.updateUI();
-				}
-			}
-
 			@Override
 			public void mouseClicked(MouseEvent e) {
 			    if (e.getClickCount() == 2) {
@@ -619,12 +593,23 @@ public final class WowApplication
 			getContentPane().setLayout(layout);
 
 			// add the buttons in the toolbar
-			toolbar.add(clear);
-			toolbar.add(compute);
-			toolbar.add(add);
-			toolbar.add(delete);
-			toolbar.add(load);
-			toolbar.add(save);
+			JPanel pane = new JPanel();
+			pane.setBorder(LineBorder.createGrayLineBorder());
+			pane.add(load);
+			pane.add(save);
+			toolbar.add(pane);
+			toolbar.add(new JSeparator());
+			pane = new JPanel();
+			pane.setBorder(LineBorder.createGrayLineBorder());
+			pane.add(compute);
+			pane.add(clear);
+			toolbar.add(pane);
+			toolbar.add(new JSeparator());
+			pane = new JPanel();
+			pane.setBorder(LineBorder.createGrayLineBorder());
+			pane.add(add);
+			pane.add(delete);
+			toolbar.add(pane);
 			
 			// add the toolbar and the tab pane on the content pane
 			getContentPane().add(toolbar, BorderLayout.NORTH);
